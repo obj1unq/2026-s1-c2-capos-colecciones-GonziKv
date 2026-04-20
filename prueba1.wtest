@@ -3,25 +3,43 @@ import artefactos.*
 
 describe "rolando obtiene objetos si puede"{
     test "Rolando intenta agarrar 3 objetos con espacio de 2"{
-        rolando.encuentra(espada)
-        assert.equals(["Espada Del Destino"], rolando.artefactos())
-        rolando.encuentra(libro)
-        assert.equals(["Espada Del Destino", "Libro de Hechizos"], rolando.artefactos())
-        rolando.encuentra(collar)
-        assert.equals(["Espada Del Destino", "Libro de Hechizos"], rolando.artefactos())
+        rolando.encontrar(espada)
+        assert.equals(#{espada}, rolando.artefactos())
+        rolando.encontrar(libro)
+        assert.equals(#{espada, libro}, rolando.artefactos())
+        assert.throwsException({rolando.encontrar(collar)})
+        assert.equals(#{espada, libro}, rolando.artefactos())
     }
     test "Rolando agarra 2 artefactos, los deja y agarra otro"{
-        rolando.encuentra(espada)
-        assert.equals(["Espada Del Destino"], rolando.artefactos())
-        rolando.encuentra(libro)
-        assert.equals(["Espada Del Destino", "Libro de Hechizos"], rolando.artefactos())
+        rolando.encontrar(espada)
+        assert.equals(#{espada}, rolando.artefactos())
+        rolando.encontrar(libro)
+        assert.equals(#{espada, libro}, rolando.artefactos())
+        rolando.llegarACasa()
+        assert.equals(#{}, rolando.artefactos())
+        assert.equals([espada, libro], castillo.artefactos())
+        rolando.encontrar(collar)
+        assert.equals(#{collar}, rolando.artefactos())
         rolando.llegarACasa()
         assert.equals([], rolando.artefactos())
-        assert.equals(["Espada Del Destino", "Libro de Hechizos"], castillo.artefactos())
-        rolando.encuentra(collar)
-        assert.equals(["Collar Divino"], rolando.artefactos())
+        assert.equals([espada, libro, collar], castillo.artefactos())
+    }
+    test "Rolando tiene 3 posesiones que ninguna es el libro"{
+        rolando.encontrar(espada)
+        rolando.encontrar(collar)
         rolando.llegarACasa()
-        assert.equals([], rolando.artefactos())
-        assert.equals(["Espada Del Destino", "Libro de Hechizos", "Collar Divino"], castillo.artefactos())
+        assert.equals([espada, collar], castillo.artefactos())
+        rolando.encontrar(armadura)
+        assert.equals([espada, collar, armadura], rolando.posesiones())
+        assert.notThat(rolando.poseeArtefacto(libro))
+    }
+    test "Historia de los artefactos"{
+        rolando.encontrar(espada)
+        rolando.encontrar(libro)
+        assert.throwsException({rolando.encontrar(collar)})
+        rolando.llegarACasa()
+        rolando.encontrar(armadura)
+        rolando.encontrar(collar)
+        assert.equals([espada, libro, collar, armadura, collar], rolando.historiaDeEncuentro())
     }
 }

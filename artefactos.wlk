@@ -1,15 +1,10 @@
-import hechizos.*
 object espada{
     var cantidadUtilizada = 0
-    var personaje = null
 
-    method personaje(_personaje){
-        personaje = _personaje
-    }
     method utilizar(){
         cantidadUtilizada += 1
     }
-    method poder(){
+    method poder(personaje){
         if (cantidadUtilizada < 1){
             return personaje.poderBase()
         } else{
@@ -19,35 +14,34 @@ object espada{
 }
 object libro{ 
     const hechizos = []
-    var personaje = null
-    var cantUsada = 0
 
-    method personaje(_personaje){
-        personaje = _personaje
+    method sumarHechizo(hechizoAAgregar){
+        hechizos.add(hechizoAAgregar)
     }
-    method personaje(){
-        return personaje
-    }
-    method poder(){
-        return hechizos.sum{hechizo => hechizo.poder()}
+
+    method poder(personaje){
+        if (hechizos.isEmpty()){
+            return 0
+        } else{
+            return (hechizos.get(0)).poder(personaje)
+            }
     }
     method utilizar(){
-        cantUsada += 1
+        if(hechizos.isEmpty()){
+            self.error("No hay hechizos para utilizar")
+        } else{
+            hechizos.remove(hechizos.first())
+            }
     }
 }
 object collar{
-    var personaje         = null
     var cantBatallasUtilizado = 0
 
     method utilizar(){
         cantBatallasUtilizado += 1
     }
 
-    method personaje(_personaje){
-        personaje = _personaje
-    }
-
-    method poder(){
+    method poder(personaje){
         if (personaje.poderBase() > 6){
             return 3 + cantBatallasUtilizado
         }else {
@@ -56,15 +50,10 @@ object collar{
     }
 }
 object armadura{
-    var personaje = null
-    var cantUsada = 0
-    method personaje(_personaje){
-        personaje = _personaje
-    }
-    method poder(){
+    
+    method poder(personaje){
         return 6
     }
     method utilizar(){
-        cantUsada += 1
     }
 }

@@ -1,0 +1,22 @@
+import capos.*
+import enemigos.*
+import artefactos.*
+import hechizos.*
+import mundoErethia.*
+
+describe "test Artefacto fatal"{
+    test"Rolando tiene artefacto fatal para astra peor no caterina"{
+        //arrange
+        rolando.capacidad(3)
+        rolando.poderBase(15)
+        rolando.encontrar(espada)
+        rolando.encontrar(armadura)
+        rolando.encontrar(collar)
+
+        //assert
+        assert.that(rolando.esArtefactoFatal(astra))
+        assert.equals (espada, rolando.artefactoFatal(astra))
+        assert.notThat(rolando.esArtefactoFatal(caterina))
+        assert.throwsException({rolando.artefactoFatal(caterina)})
+    }
+}

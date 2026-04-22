@@ -1,0 +1,26 @@
+import artefactos.*
+import moradas.*
+import capos.*
+import enemigos.*
+
+describe "Intentar derrotar a enemigos"{
+    test "Rolando puede derrotar a archibaldo y a astra"{
+        //arrange
+        rolando.poderBase(5)
+        rolando.capacidad(3)
+        //act
+        rolando.encontrar(espada)
+        rolando.encontrar(armadura)
+        rolando.encontrar(collar)
+        //assert
+        assert.equals(5, rolando.poderBase())
+        assert.equals(5, espada.poder(rolando))
+        assert.equals(6, armadura.poder(rolando))
+        assert.equals(3, collar.poder(rolando))
+        assert.equals(19, rolando.poder())
+        assert.that(rolando.leGana(archibaldo))
+        assert.that(rolando.leGana(astra))
+        assert.that(rolando.puedeConquistar(palacio))
+        assert.that(rolando.puedeConquistar(torre))
+    }
+}

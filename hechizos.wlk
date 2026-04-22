@@ -1,13 +1,18 @@
 import artefactos.*
 
 object bendicion{
-    method poder(){
+    method poder(personaje){
         return 4
     }
 }
-
 object invisibilidad{
-    method poder(){
-        return (libro.personaje()).poderBase()
+    method poder(personaje){
+        return personaje.poderBase()
     }
 }
+object invocacion{
+    method poder(personaje){
+        return personaje.poderArtefactoMasFuerteEnReserva()
+    }
+}
+

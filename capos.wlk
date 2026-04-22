@@ -1,3 +1,4 @@
+import moradas.*
 object rolando {
     var capacidad = 2
     const artefactos = #{}
@@ -27,7 +28,7 @@ object rolando {
     }
 
     method poder(){
-        return poderBase + artefactos.sum{artefacto => artefacto.poder()}
+        return poderBase + artefactos.sum{artefacto => artefacto.poder(self)}
     }
     
     method historiaDeEncuentro(){
@@ -41,7 +42,7 @@ object rolando {
     method encontrar(artefacto){
         historiaDeEncuentro.add(artefacto)
         self.validarRecolectar()
-        artefacto.personaje(self)
+
         artefactos.add(artefacto)
     }
 
@@ -58,21 +59,35 @@ object rolando {
         morada.depositar(artefactos)
         artefactos.clear()
     }
+    
+    method poderArtefactoMasFuerteEnReserva(){
+        return (morada.artefactoMasFuerte(self)).poder(self)
+    }
 
     method posesiones(){
-        return  castillo.artefactos() + artefactos.asList()
+        return  morada.artefactos() + artefactos.asList()
     }
 
     method poseeArtefacto(artefacto){
         return (self.posesiones()).contains(artefacto)
     }
-}
-object castillo{
-    const artefactos = []
-    method depositar(artefactosADepositar){
-        artefactos.addAll(artefactosADepositar)
+    
+    method leGana(enemigo){
+        return enemigo.poder() < self.poder()
     }
-    method artefactos(){
-        return artefactos
+
+    method puedeConquistar(moradaAConquistar){
+        return self.leGana(moradaAConquistar.lider())
+    }
+    method esArtefactoFatal(enemigo){
+        return artefactos.any({artefacto => artefacto.poder(self) > enemigo.poder()})
+    }
+    method artefactoFatal(enemigo){
+        if (artefactos.any({artefacto => artefacto.poder(self) > enemigo.poder()})){
+            return (artefactos.find({artefacto => artefacto.poder(self) > enemigo.poder()}))
+            } else{
+            self.error("no hay artefacto que valga")
+            }
     }
 }
+

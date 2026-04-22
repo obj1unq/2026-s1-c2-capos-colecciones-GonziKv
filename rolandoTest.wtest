@@ -1,5 +1,6 @@
 import capos.*
 import artefactos.*
+import moradas.*
 
 describe "rolando obtiene objetos si puede"{
     test "Rolando intenta agarrar 3 objetos con espacio de 2"{

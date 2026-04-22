@@ -1,6 +1,19 @@
 object espada{
-    method nombre(){
-        return "Espada Del Destino"
+    var cantidadUtilizada = 0
+    var personaje = null
+
+    method personaje(_personaje){
+        personaje = _personaje
+    }
+    method utilizar(){
+        cantidadUtilizada += 1
+    }
+    method poder(){
+        if (cantidadUtilizada < 1){
+            return personaje.poderBase()
+        } else{
+            return (personaje.poderBase() / 2)
+        }
     }
 }
 object libro{
@@ -9,12 +22,35 @@ object libro{
     }
 }
 object collar{
-    method nombre(){
-        return "Collar Divino"
+    var personaje         = null
+    var cantBatallasUtilizado = 0
+
+    method utilizar(){
+        cantBatallasUtilizado += 1
+    }
+
+    method personaje(_personaje){
+        personaje = _personaje
+    }
+
+    method poder(){
+        if (personaje.poderBase() > 6){
+            return 3 + cantBatallasUtilizado
+        }else {
+            return 3
+        }
     }
 }
 object armadura{
-    method nombre(){
-        return "Armadura de acero valyrio"
+    var personaje = null
+    var cantUsada = 0
+    method personaje(_personaje){
+        personaje = _personaje
+    }
+    method poder(){
+        return 6
+    }
+    method utilizar(){
+        cantUsada += 1
     }
 }

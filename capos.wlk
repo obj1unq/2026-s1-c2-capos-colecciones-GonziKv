@@ -2,10 +2,29 @@ object rolando {
     var capacidad = 2
     const artefactos = #{}
     const historiaDeEncuentro = []
+    var poderBase = 0
+
+    method poderBase(_poderBase){
+        poderBase = _poderBase
+    }
+    
+    method poderBase(){
+        return poderBase
+    }
+
+    method pelear(){
+        artefactos.forEach{artefacto => artefacto.utilizar()}
+        poderBase += 1
+    }
+
+    method poder(){
+        return poderBase + artefactos.sum{artefacto => artefacto.poder()}
+    }
     
     method historiaDeEncuentro(){
         return historiaDeEncuentro
     }
+
     method capacidad(_capacidad){
         capacidad = _capacidad
     }
@@ -13,6 +32,7 @@ object rolando {
     method encontrar(artefacto){
         historiaDeEncuentro.add(artefacto)
         self.validarRecolectar()
+        artefacto.personaje(self)
         artefactos.add(artefacto)
     }
 
@@ -20,16 +40,20 @@ object rolando {
         if (capacidad <= artefactos.size()){
             self.error("No tiene capacidad para agarrar el artefacto") }
     }
+
     method artefactos() {
         return artefactos
     }
+
     method llegarACasa(){
         castillo.depositar(artefactos)
         artefactos.clear()
     }
+
     method posesiones(){
         return  castillo.artefactos() + artefactos.asList()
     }
+
     method poseeArtefacto(artefacto){
         return (self.posesiones()).contains(artefacto)
     }

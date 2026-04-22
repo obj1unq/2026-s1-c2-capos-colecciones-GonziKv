@@ -21,7 +21,7 @@ describe "rolando obtiene objetos si puede"{
         rolando.encontrar(collar)
         assert.equals(#{collar}, rolando.artefactos())
         rolando.llegarACasa()
-        assert.equals([], rolando.artefactos())
+        assert.equals(#{}, rolando.artefactos())
         assert.equals([espada, libro, collar], castillo.artefactos())
     }
     test "Rolando tiene 3 posesiones que ninguna es el libro"{

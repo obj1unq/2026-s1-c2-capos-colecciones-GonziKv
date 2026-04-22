@@ -3,6 +3,15 @@ object rolando {
     const artefactos = #{}
     const historiaDeEncuentro = []
     var poderBase = 0
+    var morada = castillo
+
+    method morada(_morada){
+        morada = _morada
+    }
+
+    method morada(){
+        return morada
+    }
 
     method poderBase(_poderBase){
         poderBase = _poderBase
@@ -46,7 +55,7 @@ object rolando {
     }
 
     method llegarACasa(){
-        castillo.depositar(artefactos)
+        morada.depositar(artefactos)
         artefactos.clear()
     }
 

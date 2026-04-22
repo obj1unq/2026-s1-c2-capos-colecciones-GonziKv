@@ -1,3 +1,4 @@
+import hechizos.*
 object espada{
     var cantidadUtilizada = 0
     var personaje = null
@@ -16,9 +17,22 @@ object espada{
         }
     }
 }
-object libro{
-    method nombre(){
-        return "Libro de Hechizos"
+object libro{ 
+    const hechizos = []
+    var personaje = null
+    var cantUsada = 0
+
+    method personaje(_personaje){
+        personaje = _personaje
+    }
+    method personaje(){
+        return personaje
+    }
+    method poder(){
+        return hechizos.sum{hechizo => hechizo.poder()}
+    }
+    method utilizar(){
+        cantUsada += 1
     }
 }
 object collar{

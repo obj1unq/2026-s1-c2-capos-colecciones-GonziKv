@@ -28,7 +28,11 @@ object rolando {
     }
 
     method poder(){
-        return poderBase + artefactos.sum{artefacto => artefacto.poder(self)}
+        return poderBase + self.poderArtefactos()
+    }
+
+    method poderArtefactos(){
+        return artefactos.sum{artefacto => artefacto.poder(self)}
     }
     
     method historiaDeEncuentro(){
